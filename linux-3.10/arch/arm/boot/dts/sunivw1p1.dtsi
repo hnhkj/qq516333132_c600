@@ -157,7 +157,8 @@
 			pinctrl-1 = <&uart0_pins_b>;
 			uart0_port = <0>;
 			uart0_type = <2>;
-			status = "disabled";
+			// status = "disabled";
+			status = "okay";
 		};
 
 		uart1: uart@01c25400 {
@@ -206,7 +207,7 @@
 		twi0: twi@0x01c27000{
 			#address-cells = <1>;
 			#size-cells = <0>;
-			compatible = "allwinner,suniv-twi";
+			compatible = "allwinner,suniv-twix";
 			device_type = "twi0";
 			reg = <0x0 0x01c27000 0x0 0x400>;
 			interrupts = <7>;
@@ -221,7 +222,7 @@
 		twi1: twi@0x01c27400{
 			#address-cells = <1>;
 			#size-cells = <0>;
-			compatible = "allwinner,suniv-twi";
+			compatible = "allwinner,suniv-twix";
 			device_type = "twi1";
 			reg = <0x0 0x01c27400 0x0 0x400>;
 			interrupts = <8>;
@@ -287,6 +288,12 @@
 			spi1_cs_bitmap = <1>;
 			status = "disabled";
 		};
+		reg_3p3v: vcc3v3 {
+			compatible = "regulator-fixed";
+			regulator-name = "vcc3v3";
+			regulator-min-microvolt = <330000>;
+			regulator-max-microvolt = <330000>;
+		};
 		sdc0: sdmmc@01c0f000 {
 			compatible = "allwinner,sunivw1p1-sdmmc0";
 			device_type = "sdc0";
@@ -303,9 +310,9 @@
 			/*non-removable;*/
 			/*cd-inverted*/
 			/*cd-gpios = <&pio PA 1 0 1 2 0>;*/
-			/* vmmc-supply = <&reg_3p3v>;*/
-			/* vqmc-supply = <&reg_3p3v>;*/
-			/* vdmc-supply = <&reg_3p3v>;*/
+			vmmc-supply = <&reg_3p3v>;
+			vqmc-supply = <&reg_3p3v>;
+			vdmc-supply = <&reg_3p3v>;
 			/*vmmc = "vcc-card";*/
 			/*vqmc = "";*/
 			/*vdmc = "";*/	
@@ -325,8 +332,8 @@
 			/*sunxi-dly-104M-ddr  = <1 0 0 0>;*/
 			/*sunxi-dly-208M-ddr  = <1 0 0 0>;*/
 
-			/*status = "okay";*/
-			status = "disabled";
+			status = "okay";
+			/* status = "disabled"; */
 		};
 
 
@@ -384,13 +391,125 @@
 									 <33>, /*de interlace*/
 									 <29>; /*lcd*/
 			clocks = <&clk_defe>,<&clk_debe>,<&clk_deinterlace>,<&clk_tcon>;
+
+/* add by lq - 1218715400@qq.com
+*/
+			device_type = "disp_init";
+			disp_init_enable = <1>;
+			disp_mode = <0>;
+			screen0_output_type = <1>;
+			screen0_output_mode = <0>;
+			screen1_output_type = <1>;
+			screen1_output_mode = <0>;
+			fb0_framebuffer_num = <1>;
+			fb0_format = <10>;
+			fb0_pixel_sequence = <0>;
+			fb0_scaler_mode_enable = <0>;
+			fb0_width = <480>;
+			fb0_height = <272>;
+			fb1_framebuffer_num = <2>;
+			fb1_format = <5>;
+			fb1_pixel_sequence = <0>;
+			fb1_scaler_mode_enable = <0>;
+			fb1_width = <480>;
+			fb1_height = <272>;
+			lcd0_bright = <50>;
+			lcd0_contrast = <50>;
+			lcd0_saturation = <57>;
+			lcd0_hue = <50>;
 			status = "okay";
 		};
 
+		lcd0_para: lcd0_para {
+			compatible = "allwinner,lcd0_para";
+			lcd_pwm_used = <1>;
+			lcd_pwm = <&pio PE 6 3 0 1 0>;
+		};
+
 		lcd0: lcd0@01c0c000 {
+			device_type = "lcd0";
 			compatible = "allwinner,sunxi-lcd0";
 			pinctrl-names = "active","sleep";
+			pinctrl-0 = <&lcd0_pins_a>;
+			pinctrl-1 = <&lcd0_pins_b>;
+			lcd_used = <1>;
+			lcd_pwm_used = <1>;
+			/* panel para config add by lq - 1218715400@qq.com */
+			lcd_x = <480>;
+			lcd_y = <272>;
+			lcd_dclk_freq = <9>;
+/*
+			lcd_x = <800>;
+			lcd_y = <600>;
+			lcd_dclk_freq = <40>;
+*/
 
+			lcd_pwm = <&pio PE 6 3 0 1 0>;
+			lcd_pwm_ch = <1>; // pwm1 config
+			lcd_pwm_freq = <1000>;
+			lcd_pwm_pol = <1>;
+			lcd_if = <0>; // config hv(sync+de)
+			lcd_hbp = <2>;
+			lcd_ht = <525>;
+			lcd_vbp = <2>;
+			lcd_vt = <572>;
+/*
+			lcd_hbp = <46>;
+			lcd_ht = <1056>;
+			lcd_vbp = <23>;
+			lcd_vt = <1270>;
+*/
+			lcd_width = <127>;
+			lcd_height = <58>;
+			lcd_hv_if = <0>;
+			lcd_hv_smode = <0>; // rgb888
+			lcd_hv_s888_if = <0>; 
+			lcd_hv_syuv_if = <0>;
+			lcd_hv_vspw = <0>; // <10>;
+			lcd_hv_hspw = <0>; // <41>;
+			lcd_cpu_if = <0>; // 18bit
+			lcd_frm = <0>;
+			lcd_io_cfg0 = <0x10000000>;
+			lcd_gamma_en = <0>;
+			lcd_io_phase = <0x0000>;
+			lcd_bright_curve_en = <0>;
+			lcd_cmap_en = <0>;
+			deu_mode = <0>;
+			lcdgamma4iep = <22>;
+			smart_color = <90>;
+			// lvds none
+			lcd_lvds_if         = <0>;
+			lcd_lvds_colordepth = <1>;
+			lcd_lvds_mode       = <0>;
+			lcd_lvds_ch         = <0>;
+			lcd_lvds_bitwidth   = <0>;
+			lcd_lvds_io_cross   = <0>;
+			// lcd data config
+/*
+			lcdd2 = <&pio PD 0 2 1 1 0>;
+			lcdd3 = <&pio PD 1 2 1 1 0>;
+			lcdd4 = <&pio PD 2 2 1 1 0>;
+			lcdd5 = <&pio PD 3 2 1 1 0>;
+			lcdd6 = <&pio PD 4 2 1 1 0>;
+			lcdd7 = <&pio PD 5 2 1 1 0>;
+			lcdd10 = <&pio PD 6 2 1 1 0>;
+			lcdd11 = <&pio PD 7 2 1 1 0>;
+			lcdd12 = <&pio PD 8 2 1 1 0>;
+			lcdd13 = <&pio PD 9 2 1 1 0>;
+			lcdd14 = <&pio PD 10 2 1 1 0>;
+			lcdd15 = <&pio PD 11 2 1 1 0>;
+			lcdd18 = <&pio PD 12 2 1 1 0>;
+			lcdd19 = <&pio PD 13 2 1 1 0>;
+			lcdd20 = <&pio PD 14 2 1 1 0>;
+			lcdd21 = <&pio PD 15 2 1 1 0>;
+			lcdd22 = <&pio PD 16 2 1 1 0>;
+			lcdd23 = <&pio PD 17 2 1 1 0>;
+			lcdclk = <&pio PD 18 2 1 1 0>;
+			lcdde = <&pio PD 19 2 1 1 0>;
+			lcdhsync = <&pio PD 20 2 1 1 0>;
+			lcdvsync = <&pio PD 21 2 1 1 0>;
+*/
+			// 
 			status = "okay";
 		};
 
@@ -399,7 +518,8 @@
 			reg = <0x0 0x01cb0000 0x0 0x1000>;/*0x01cb0000--0x01cb1000*/
 			clocks 			= <&clk_csi_m>,<&clk_pll_video>,<&clk_hosc>;
 			clocks-index		= <0 1 2>;
-			status = "okay";
+			/* status = "okay"; */
+			status = "disable";
 		};
 		
 		csi0:vfe@0 {
@@ -500,7 +620,8 @@
 			dmas = <&dma0 0 14>,
 				   <&dma0 0 14>;
 			dma-names = "rx-tx","rx-tx";
-			status = "okay";
+			/* status = "okay"; */ // conflict lcd0 data PD7 disabled by lq - 1218715400@qq.com
+			status = "disabled";
 		};
 
 		spdif:spdif-controller@0x01c21400{
@@ -547,7 +668,8 @@
 			sunxi,audio-codec = <&codec>;
 //			headphone-dect = <&pio PD 1 0 6 1 1>;	
 			hp_detect_case = <0x00>;
-			status = "okay";
+			/* status = "okay"; */ // conflict lcd0 data PD1 disabled by lq - 1218715400@qq.com
+			status = "disabled";
 		};
 
 		sndspdif:sound@1{

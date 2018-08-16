@@ -25,17 +25,36 @@
 				allwinner,drive = <1>;
 				allwinner,pull = <1>;
 			};
+			/* lcd pin config add by lq - 1218715400@qq.com */
+			lcd0_pins_a: lcd0@0 {
+				allwinner,pins = "PD0", "PD1", "PD2", "PD3", "PD3", "PD4", "PD5", "PD6", "PD7", "PD8", "PD9", "PD10", "PD11", "PD12", "PD13", "PD14", "PD15", "PD16", "PD17", "PD18", "PD19", "PD20", "PD21";
+				allwinner,pname = "lcdd2", "lcdd3", "lcdd4", "lcdd5", "lcdd6", "lcdd7", "lcdd10", "lcdd11", "lcdd12", "lcdd13", "lcdd14", "lcdd15", "lcdd18", "lcdd19", "lcdd20", "lcdd21", "lcdd22", "lcdd23", "lcdclk", "lcdde", "lcdhsync", "lcdvsync";
+				allwinner,function = "lcd0";
+				allwinner,muxsel = <2>;
+				allwinner,drive = <1>;
+				allwinner,pull = <1>;
+			};
+
+			lcd0_pins_b: lcd0@1 {
+				allwinner,pins = "PD0", "PD1", "PD2", "PD3", "PD3", "PD4", "PD5", "PD6", "PD7", "PD8", "PD9", "PD10", "PD11", "PD12", "PD13", "PD14", "PD15", "PD16", "PD17", "PD18", "PD19", "PD20", "PD21";
+				allwinner,function = "io_disabled";
+				allwinner,muxsel = <7>;
+				allwinner,drive = <1>;
+				allwinner,pull = <1>;
+			};
+
 			uart0_pins_a: uart0@0 {
-				allwinner,pins = "PF4", "PF2";
+				/* allwinner,pins = "PF4", "PF2"; */ // modify by lq - 1218715400@qq.com
+				allwinner,pins = "PE1", "PE0";
 				allwinner,pname = "uart0_tx", "uart0_rx";
 				allwinner,function = "uart0";
-				allwinner,muxsel = <3>;
+				allwinner,muxsel = <5>;
 				allwinner,drive = <1>;
 				allwinner,pull = <1>;
 			};
 
 			uart0_pins_b: uart0@1 {
-				allwinner,pins = "PF2", "PF4";
+				allwinner,pins = "PE1", "PE0";
 				allwinner,function = "io_disabled";
 				allwinner,muxsel = <7>;
 				allwinner,drive = <1>;

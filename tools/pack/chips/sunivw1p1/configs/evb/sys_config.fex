@@ -292,7 +292,7 @@ nand0_p3 = 0x55aaaa55
 ;lcd0_hue              (LCD hue, 0~100)
 ;----------------------------------------------------------------------------------
 [disp_init]
-disp_init_enable         = 0
+disp_init_enable         = 1
 disp_mode                = 0
 
 screen0_output_type      = 1
@@ -363,7 +363,7 @@ lcd1_hue                 = 50
 ;smart_color           90:normal lcd screen 65:retina lcd screen(9.7inch)
 ;----------------------------------------------------------------------------------
 [lcd0]
-lcd_used            = 0
+lcd_used            = 1
 
 lcd_driver_name     = "default_lcd"
 lcd_if              = 0
