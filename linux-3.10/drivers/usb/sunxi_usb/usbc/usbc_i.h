@@ -18,7 +18,7 @@
 
 #include "../include/sunxi_usb_config.h"
 
-#define  USBC_MAX_OPEN_NUM    1
+#define  USBC_MAX_OPEN_NUM    2
 
 void __iomem *get_otgc_vbase(void);
 

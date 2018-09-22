@@ -38,14 +38,14 @@ size = 16
     name         = boot
     ;size         = 4224
     ;size         = 5120
-	size         = 4608
+	size         = 6656
     downloadfile = "kernel.fex"
     user_type    = 0x8000
 
 [partition]
     name         = rootfs
     ;size         = 10752
-    size         = 16384
+    size         = 14336
 	;size         = 10880
     downloadfile = "rootfs_squashfs.fex"
     user_type    = 0x8000

@@ -1406,7 +1406,7 @@ __u32 USBC_TestMode_ReadReg(__hdle hUSB, __u32 offset, __u32 reg_width)
 
 __hdle USBC_open_otg(__u32 otg_no)
 {
-	__usbc_otg_t *usbc_otg = usbc_otg_array;
+	__usbc_otg_t *usbc_otg = &usbc_otg_array[otg_no];
 
 	usbc_otg->used      = 1;
 	usbc_otg->no        = otg_no;

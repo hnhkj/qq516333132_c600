@@ -60,7 +60,7 @@ static const char	driver_desc[] = DRIVER_DESC;
 static u64 sunxi_udc_mask = DMA_BIT_MASK(32);
 
 static struct sunxi_udc	*the_controller = NULL;
-static u32 usbd_port_no = 0;
+static u32 usbd_port_no = 1;
 static sunxi_udc_io_t g_sunxi_udc_io;
 static u32 usb_connect = 0;
 static u32 is_controller_alive = 0;
@@ -2801,9 +2801,6 @@ int sunxi_usb_device_enable(void)
 	struct platform_device *pdev	= g_udc_pdev;
 	struct sunxi_udc  	*udc	= &sunxi_udc;
 	int		   	retval  = 0;
-
-	DMSG_INFO_UDC("sunxi_usb_device_enable start\n");
-
 	if (pdev == NULL) {
 		DMSG_PANIC("pdev is null\n");
 		return -1;
@@ -2855,6 +2852,8 @@ int sunxi_usb_device_enable(void)
 		retval = -EBUSY;
 		goto err;
 	}
+
+	is_udc_enable = 1;
 
 	if (udc->driver && is_udc_enable) {
 		sunxi_udc_enable(udc);
