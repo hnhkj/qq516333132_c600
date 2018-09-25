@@ -68,7 +68,13 @@ typedef struct sunxi_udc_ep {
 static const char ep0name [] = "ep0";
 static const char ep1in_bulk_name []  = "ep1in-bulk";
 static const char ep1out_bulk_name [] = "ep1out-bulk";
+
+#if 1
+static const char ep2in_bulk_name []  = "ep2-int"; // 作为 INT 节点，为了 usb_ep_autoconfig 能查询到
+#else
 static const char ep2in_bulk_name []  = "ep2in-bulk";
+#endif
+
 static const char ep2out_bulk_name [] = "ep2out-bulk";
 static const char ep3_iso_name []     = "ep3-iso";
 static const char ep4_int_name []     = "ep4-int";

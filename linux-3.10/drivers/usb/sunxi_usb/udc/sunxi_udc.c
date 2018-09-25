@@ -2688,7 +2688,13 @@ static struct sunxi_udc sunxi_udc = {
 		.dev		        = &sunxi_udc,
 		//.fifo_size	        = SW_UDC_EP_FIFO_SIZE,
 		.bEndpointAddress   = (USB_DIR_IN | 2),
+
+#if 1
+		.bmAttributes	    = USB_ENDPOINT_XFER_INT,
+#else
 		.bmAttributes	    = USB_ENDPOINT_XFER_BULK,
+#endif
+
 	},
 
 	.ep[4] = {
